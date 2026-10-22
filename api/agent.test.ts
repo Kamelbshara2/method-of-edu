@@ -47,11 +47,24 @@ describe("AI HTTP boundary", () => {
   it("rejects unsupported methods and disables caching", async () => {
     const r = response();
     await handler(
-      mockRequest({}, "GET"),
+      mockRequest({}, "DELETE"),
       r as unknown as Parameters<typeof handler>[1],
     );
     expect(r.code).toBe(405);
     expect(r.headers["Cache-Control"]).toBe("no-store");
+  });
+  it("exposes only non-secret configuration status and makes no provider request", async () => {
+    const r = response();
+    const spy = vi.spyOn(globalThis, "fetch");
+    await handler(
+      mockRequest({}, "GET"),
+      r as unknown as Parameters<typeof handler>[1],
+    );
+    expect(r.code).toBe(200);
+    expect(r.headers["Cache-Control"]).toBe("no-store");
+    expect(r.payload).toMatchObject({ accessPasswordConfigured: true });
+    expect(JSON.stringify(r.payload)).not.toContain("a".repeat(32));
+    expect(spy).not.toHaveBeenCalled();
   });
   it("rejects unauthorized callers before processing content", async () => {
     const r = response();

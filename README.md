@@ -7,10 +7,10 @@ A bilingual Methods of Teaching revision platform, with detailed academic study 
 The user supplied **three course guides (45 PDF pages)**: Introduction to Teaching, Writing ABCD Objectives, and Instructional Planning. The current app is scoped to these guides; the full course can be extended later. The full university syllabus and lecturer's exact examination have not been independently verified.
 
 - **Three chapters, 18 detailed subtopic cards**, in English and formal Arabic, with conversational explanations in Egyptian, Jordanian, Emirati, and Syrian Arabic.
-- **36 mapped practice MCQs** (two per subtopic), with full bilingual rationale, feedback for all four options, and original PDF page links.
-- **18 written self-checks and three extended classroom cases**, with model responses and transparent answer criteria. The case lab is ungraded and keeps writing in session memory.
+- **90 mapped practice MCQs** (five per subtopic), with full bilingual rationale, feedback for all four options, and original PDF page links.
+- **18 written self-checks and eight extended classroom cases (two each for Mathematics, IT, Science, and Art; Mathematics first)**, with model responses and transparent answer criteria. The case lab is ungraded and keeps writing in session memory.
 - Visual guides for PCK/TPACK, all seven TPACK domains, ADDIE, ASSURE, ABCD, backward design, planning levels, InTASC, and daily lesson components.
-- A visible coverage map and clearly flagged source gaps, including Dick & Carey detail missing from the supplied chapter body.
+- Bilingual comparison tables for every subtopic, a searchable bilingual glossary, an expandable question-by-question coverage map, and clearly flagged source gaps, including Dick & Carey detail missing from the supplied chapter body.
 
 Original PDFs are bundled in `public/materials/` and available to users of the deployed app. `src/midterm/sourcePages.json` retains the extracted page text; source citations are checked against it. These included guides are publicly accessible if the deployed app is public. Additional PDF uploads stay browser-local. See `COURSE_STATUS.md` for scope and qualifications.
 
@@ -40,8 +40,10 @@ Create an ignored `.env.local` for local development, or use Vercel **Project Se
 | Server variable     | Purpose                                                                                                                                                                                                      |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `FAHM_AI_API_KEY`   | Your OpenAI API key, with billing and access to the selected model. Server only.                                                                                                                             |
-| `FAHM_REVIEW_TOKEN` | A random access token of at least 24 characters. Generate one locally with `openssl rand -hex 32`; set it on the server, then enter the same value in AI Studio. This is separate from the provider API key. |
+| `FAHM_REVIEW_TOKEN` | A random access token of at least 24 characters. Create one with the generator in AI Studio or locally with `openssl rand -hex 32`; set it on the server, then enter the same value in AI Studio. This is separate from the provider API key. |
 | `FAHM_AI_MODEL`     | Optional model override. Default: `gpt-6-astra`, using high reasoning effort.                                                                                                                                |
+
+AI Studio also checks whether the server variables are present without exposing their values or making a paid request. This does not validate API billing, key validity, or model access. New visitors start with the Jordanian explanation dialect; saved preferences are preserved.
 
 Restart Vite or redeploy Vercel after changing server variables. Do not paste keys into chat or commit `.env.local`. AI Studio holds the workspace token in React memory only. It is not a user-account system; anyone given that token can make paid AI requests. Use Vercel deployment protection and provider spending limits for a shared deployment. A production service with public student accounts would need durable user authentication and rate limits.
 
@@ -53,7 +55,7 @@ The default model is a quality-focused choice, not a claim of measured superiori
 2. Open **AI Studio**. Select specific files and page ranges, enter the workspace access token, and consent to sending the selected extracted text to OpenAI. Neither the original PDF files nor unrelated library pages are uploaded by this workflow.
 3. **Build study cards** creates a focused packet: up to four detailed subtopic cards and six questions. Cards include conceptual explanation, application, a worked example, comparisons, misconceptions, a self-check, a reasoned answer, and explanations in all four dialects. English/formal Arabic and canonical terminology remain paired.
 4. A separate model call independently reviews the packet and every question. It audits the answer key, distractors, conceptual accuracy, cognitive demand, English/Arabic equivalence, feedback, and source support. This is a new context using the same model, so it can still make correlated errors. Disagreements remain visible and do not silently overwrite the author's key.
-5. **Review questions** audits the current generated question set, or a chosen six-question batch from the 36-question midterm bank, against selected pages. **Answer feedback** assesses a student's written reasoning and offers strengths, corrections, next steps, and a model answer.
+5. **Review questions** audits the current generated question set, or a chosen six-question batch from the 90-question midterm bank, against selected pages. **Answer feedback** assesses a student's written reasoning and offers strengths, corrections, next steps, and a model answer.
 6. Accepted packets are kept as local browser collections, displayed as cards. Review the scope gaps and reviewer findings before relying on a packet. Build further focused packets for the remaining source pages; the system does not claim whole-course coverage from one excerpt.
 
 Limits: 24 readable source pages, 80,000 characters total, and 16,000 characters per page per request. Sources are never silently truncated. Building a packet makes two provider calls and may take several minutes. The server has 115-second timeouts per provider call; Vercel is configured for a maximum 300-second function duration, subject to your account's limits. Narrow the focus or source range if output is incomplete.

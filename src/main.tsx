@@ -44,6 +44,8 @@ import {
   type Dialect,
   type Topic,
 } from "./content";
+import EvidenceRegister from "./EvidenceRegister";
+import TerminologyPanel from "./TerminologyPanel";
 import MidtermVisuals from "./MidtermVisuals";
 import SourceNotes from "./SourceNotes";
 import { courseMaterials } from "./midterm/sources";
@@ -57,11 +59,18 @@ import "@fontsource-variable/manrope";
 import "@fontsource-variable/noto-sans-arabic";
 import "./styles.css";
 import pdfWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
-type Page = "dashboard" | "topics" | "practice" | "library" | "saved" | "agent";
+type Page =
+  | "dashboard"
+  | "topics"
+  | "practice"
+  | "library"
+  | "saved"
+  | "agent"
+  | "evidence";
 function App() {
   const [page, setPage] = useState<Page>("dashboard");
   const [dialect, setDialect] = useState<Dialect>(() =>
-    readSaved("fahm-dialect", "egyptian"),
+    readSaved("fahm-dialect", "jordanian"),
   );
   const [bilingual, setBilingual] = useState(true);
   const [languageOpen, setLanguageOpen] = useState(false);
@@ -320,6 +329,7 @@ function App() {
             { id: "library", label: "My materials", icon: FolderOpen },
             { id: "agent", label: "AI Studio", icon: Sparkles },
             { id: "saved", label: "Saved notes", icon: Bookmark },
+            { id: "evidence", label: "Sources & review", icon: BookOpen },
           ].map((n) => (
             <button
               key={n.id}
@@ -623,7 +633,7 @@ function App() {
                       feedback that explains the why.
                     </p>
                     <div className="promo-meta">
-                      <span>36 source-linked questions</span>
+                      <span>90 source-linked questions</span>
                       <span>Untimed</span>
                     </div>
                     <button onClick={() => navigate("practice")}>
@@ -692,7 +702,7 @@ function App() {
                   <strong>Current midterm collection</strong>
                   <p>
                     Based on the three uploaded topic guides, with 18 detailed
-                    subtopics and 36 source-linked questions. This is the
+                    subtopics and 90 source-linked questions. This is the
                     current midterm scope; full-course material can be added
                     later.
                   </p>
@@ -983,38 +993,7 @@ function App() {
                   dialect={dialect}
                 />
               )}
-              {tab === "terms" && (
-                <div className="study-paper">
-                  <span className="eyebrow">PRECISE WORDS, CLEAR MEANING</span>
-                  <h2>The vocabulary that matters.</h2>
-                  <p>
-                    Standard Arabic terminology stays consistent across all four
-                    explanation dialects.
-                  </p>
-                  <div className="terms-list">
-                    {topic.keywords.map((k, i) => (
-                      <div key={k.en}>
-                        <span>0{i + 1}</span>
-                        <strong>{k.en}</strong>
-                        <strong className="arabic" dir="rtl" lang="ar">
-                          {k.ar}
-                        </strong>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="source-note">
-                    <h3>Source transparency</h3>
-                    <p>{topic.source}</p>
-                    <p>
-                      These overview notes summarize the uploaded course guides.
-                      The supplied guides establish this collection’s current
-                      scope. Source-linked questions and detailed cards
-                      reference PDF pages; the full university syllabus and
-                      actual examination are not assumed.
-                    </p>
-                  </div>
-                </div>
-              )}
+              {tab === "terms" && <TerminologyPanel topicId={topic.id} />}
             </>
           )}
           {page === "practice" && !topic && (
@@ -1075,7 +1054,7 @@ function App() {
                         onChange={(e) => setExamTopic(e.target.value)}
                       >
                         <option value="all">
-                          All midterm topics · 36 questions
+                          All midterm topics · 90 questions
                         </option>
                         {topics.map((t) => (
                           <option key={t.id} value={t.id}>
@@ -1127,7 +1106,7 @@ function App() {
                     <div>
                       <strong>Current midterm coverage & limits</strong>
                       <p>
-                        36 questions map to all 18 subtopics from your three
+                        90 questions map to all 18 subtopics from your three
                         guides. Practice combines recall and application. The
                         guides define this collection’s scope, not the
                         lecturer’s exact exam. Dick & Carey details remain a
@@ -1557,6 +1536,7 @@ function App() {
               />
             </Suspense>
           )}
+          {page === "evidence" && !topic && <EvidenceRegister />}
           <footer>
             <span className="footer-brand">
               fahm<span>.</span>

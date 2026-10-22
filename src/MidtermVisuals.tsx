@@ -24,7 +24,7 @@ export default function MidtermVisuals({
       {topicId === "foundations" ? (
         <>
           <h2>Professional knowledge → instructional design</h2>
-          <div className="framework-map">
+          <p className="visual-note">These are complementary lenses, not a mandatory ladder or a sequence of teaching stages. / هذه منظورات متكاملة، وليست سُلّمًا إلزاميًا أو مراحل تدريس متتابعة.</p><div className="framework-map">
             <div>
               <strong>PCK</strong>
               <Row

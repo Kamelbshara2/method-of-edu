@@ -11,7 +11,7 @@ describe("midterm source coverage", () => {
       ["planning", 9],
     ]);
   });
-  it("provides 18 substantial source-backed cards and two mapped questions per card", () => {
+  it("provides 18 substantial source-backed cards and five mapped questions per card", () => {
     expect(segments).toHaveLength(18);
     expect(new Set(segments.map((s) => s.id)).size).toBe(18);
     expect(
@@ -23,7 +23,7 @@ describe("midterm source coverage", () => {
       expect(s.steps).toHaveLength(3);
       expect(s.analysis.en.length).toBeGreaterThan(100);
       expect(s.answer.ar.length).toBeGreaterThan(50);
-      expect(questions.filter((q) => q.segmentId === s.id)).toHaveLength(2);
+      expect(questions.filter((q) => q.segmentId === s.id)).toHaveLength(5);
       for (const d of dialects)
         expect(s.dialect[d.id].length).toBeGreaterThan(20);
       for (const ref of s.references) {
@@ -45,7 +45,10 @@ describe("midterm source coverage", () => {
       validateCitations({ lessons: segments, questions }, pages),
     ).not.toThrow();
     const checks = validateCitations({ lessons: segments, questions }, pages);
-    expect(checks.total).toBeGreaterThan(100);
+    expect(checks.total).toBe(
+      segments.reduce((n, s) => n + s.citations.length, 0) +
+        questions.reduce((n, q) => n + q.citations.length, 0),
+    );
     expect(checks.verified).toBe(checks.total);
   });
 });

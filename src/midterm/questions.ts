@@ -1,3 +1,6 @@
+import { additionalQuestions } from "./additionalQuestions";
+import { excerpt, questionEvidence } from "./evidence";
+import { applyQuestionReview } from "./reviewedQuestions";
 import type { Question } from "../content";
 import { segments } from "../deepContent";
 type Pair = [string, string];
@@ -27,10 +30,10 @@ function Q(
     arWhy: reason[1],
     distractors: feedback.map((p) => p[0]),
     arDistractors: feedback.map((p) => p[1]),
-    citations: s.citations,
+    citations: questionEvidence[id]?.map(excerpt) || s.citations,
   };
 }
-export const midtermQuestions: Question[] = [
+const authoredQuestions: Question[] = [
   Q(
     "m01",
     "teaching-functions",
@@ -93,7 +96,7 @@ export const midtermQuestions: Question[] = [
       ["Presenting, questioning, managing", "العرض والأسئلة والإدارة"],
       [
         "Knowledge, skills, dispositions",
-        "المعرفة والمهارات والاستعدادات المهنية",
+        "المعرفة والمهارات والتوجهات المهنية",
       ],
       ["Planning, implementing, assessing", "التخطيط والتنفيذ والتقويم"],
       ["Analysis, design, development", "التحليل والتصميم والتطوير"],
@@ -1630,4 +1633,9 @@ export const midtermQuestions: Question[] = [
       ],
     ],
   ),
+];
+
+export const midtermQuestions = [
+  ...authoredQuestions.map(applyQuestionReview),
+  ...additionalQuestions,
 ];

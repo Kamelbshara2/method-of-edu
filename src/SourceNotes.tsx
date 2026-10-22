@@ -11,8 +11,10 @@ export default function SourceNotes({
         <BookOpen size={15} /> PRIMARY COURSE EVIDENCE
       </span>
       <p>
-        Open the original guide to check the explanation in context. PDF page
-        numbers count from the first file page.
+        These substantive excerpts come from the supplied guides. Read the
+        original page for context; quotations establish source provenance, while
+        explanations and examples are teaching synthesis. PDF numbering starts
+        at the first file page.
       </p>
       {citations.map((c, i) => (
         <details key={i}>

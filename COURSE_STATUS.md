@@ -10,7 +10,7 @@ The user identified the course as Methods of Teaching at Al Ain University, code
 
 All **45 pages** were extracted and reviewed. The original PDF bytes are retained under `public/materials/`; page text is committed in `src/midterm/sourcePages.json`. Page links count from the first PDF file page. Chapter One's cover and contents count as pages 1 and 2. The originals are included in the deployed app and are publicly accessible wherever the app is publicly accessible; additional user uploads stay browser-local until explicitly submitted to AI Studio.
 
-The primary study path has **three chapters and 18 subtopics** (7 introduction, 6 objectives, 5 planning), with **36 mapped MCQs**, **18 written self-checks**, and **three extended-response classroom cases**. Every subtopic has two mapped MCQs. A visible coverage map shows this relationship. Question feedback includes a rationale, a discussion of each alternative, and the relevant source pages. The assessment is practice, not an official university examination or a guarantee that every sentence will be assessed.
+The primary study path has **three chapters and 18 subtopics** (7 introduction, 6 objectives, 5 planning), with **90 mapped MCQs**, **18 written self-checks**, and **eight extended-response classroom cases (two each for Mathematics, IT, Science, and Art; Mathematics first)**. Every subtopic has five mapped MCQs. A visible coverage map shows this relationship. Question feedback includes a rationale, a discussion of each alternative, and the relevant source pages. The assessment is practice, not an official university examination or a guarantee that every sentence will be assessed.
 
 ## Source gaps and qualifications
 

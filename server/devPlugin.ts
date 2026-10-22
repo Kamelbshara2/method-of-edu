@@ -1,5 +1,10 @@
 import type { Plugin } from "vite";
-import { authorized, runAgent, safeAgentError } from "./agent";
+import {
+  authorized,
+  runAgent,
+  safeAgentError,
+  configurationStatus,
+} from "./agent";
 export function agentPlugin(env: Record<string, string>): Plugin {
   return {
     name: "fahm-local-agent",
@@ -11,6 +16,7 @@ export function agentPlugin(env: Record<string, string>): Plugin {
           res.statusCode = status;
           res.end(JSON.stringify(payload));
         };
+        if (req.method === "GET") return send(200, configurationStatus(env));
         if (req.method !== "POST") return send(405, { error: "Use POST." });
         if (!env.FAHM_REVIEW_TOKEN || env.FAHM_REVIEW_TOKEN.length < 24)
           return send(503, {
@@ -19,7 +25,8 @@ export function agentPlugin(env: Record<string, string>): Plugin {
           });
         if (!authorized(req.headers.authorization, env.FAHM_REVIEW_TOKEN))
           return send(401, {
-            error: "The workspace access token is missing or incorrect.",
+            error:
+              "The AI access password is missing or incorrect. Use the value you set as FAHM_REVIEW_TOKEN in Vercel.",
           });
         if (!req.headers["content-type"]?.includes("application/json"))
           return send(415, { error: "Use application/json." });

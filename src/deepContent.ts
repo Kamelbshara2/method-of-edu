@@ -1,3 +1,4 @@
+import { excerpt, lessonEvidence } from "./midterm/evidence";
 import {
   sourceDocuments,
   sourceLabel,
@@ -38,16 +39,7 @@ type Draft = Omit<Segment, "references" | "citations"> & {
   evidence: [string, number, string][];
 };
 function L(v: Draft): Segment {
-  const citations = v.evidence.map(([documentId, page, needle]) => {
-    const p = sourceDocuments
-      .find((d) => d.id === documentId)
-      ?.pages.find((p) => p.page === page);
-    if (!p) throw new Error("Missing source page");
-    const start = p.text.indexOf(needle);
-    if (start < 0)
-      throw new Error(`Missing evidence ${documentId}:${page}: ${needle}`);
-    return { documentId, page, quote: p.text.slice(start, start + 320) };
-  });
+  const citations = (lessonEvidence[v.id] || v.evidence).map(excerpt);
   const refs = citations.map((c) => {
     const id = `${v.id}-${c.documentId}-${c.page}`;
     references[id] = {
@@ -130,11 +122,11 @@ export const segments: Segment[] = [
     ),
     goal: b(
       "Distinguish knowledge, skills, and dispositions and analyze five novice–experienced comparisons.",
-      "تمييز المعرفة والمهارات والاستعدادات المهنية وتحليل المقارنة في خمسة مجالات.",
+      "تمييز المعرفة والمهارات والتوجهات المهنية وتحليل المقارنة في خمسة مجالات.",
     ),
     concept: b(
       "Knowledge includes subject content, general pedagogy, PCK, and TPACK. Skills are the ability to use that knowledge in practice. Dispositions are values, commitment, ethics, beliefs, and attitudes expressed through behavior. A knowledgeable teacher who cannot communicate a concept has knowledge without the full performance needed for effective teaching. The guide also emphasizes fairness, rapport, enthusiasm, management, flexibility, and reflection.\n\nIts beginning–experienced comparison spans purpose, planning, teaching, assessment, and management. The developmental direction is from covering textbook content toward cultivating understanding; from assuming learning toward checking it; and from controlling students toward supporting self-regulation. These are patterns for analysis, not a rule that every novice is ineffective or that experience automatically creates expertise. Mentoring and reflection matter.",
-      "تضم المعرفة المحتوى والبيداغوجيا العامة وPCK وTPACK. والمهارات هي توظيف المعرفة في الممارسة، أما الاستعدادات المهنية فتشمل القيم والالتزام والأخلاق والمعتقدات والاتجاهات الظاهرة في السلوك. قد يعرف المعلّم الموضوع ولا يستطيع توضيحه، فيمتلك معرفة دون الأداء الكامل المطلوب. ويؤكد الدليل الإنصاف والألفة والحماس والإدارة والمرونة والتأمل.\n\nتقارن المادة المبتدئ والمتمرس في الغرض والتخطيط والتدريس والتقويم والإدارة. يتجه التطور من تغطية الكتاب إلى تنمية الفهم، ومن افتراض التعلّم إلى فحصه، ومن السيطرة إلى التنظيم الذاتي. هذه أنماط تحليلية وليست حكمًا على كل مبتدئ أو ضمانًا بأن سنوات الخبرة تنتج الكفاءة تلقائيًا؛ فالإرشاد والتأمل مهمان.",
+      "تضم المعرفة المحتوى والبيداغوجيا العامة وPCK وTPACK. والمهارات هي توظيف المعرفة في الممارسة، أما التوجهات المهنية فتشمل القيم والالتزام والأخلاق والمعتقدات والاتجاهات الظاهرة في السلوك. قد يعرف المعلّم الموضوع ولا يستطيع توضيحه، فيمتلك معرفة دون الأداء الكامل المطلوب. ويؤكد الدليل الإنصاف والألفة والحماس والإدارة والمرونة والتأمل.\n\nتقارن المادة المبتدئ والمتمرس في الغرض والتخطيط والتدريس والتقويم والإدارة. يتجه التطور من تغطية الكتاب إلى تنمية الفهم، ومن افتراض التعلّم إلى فحصه، ومن السيطرة إلى التنظيم الذاتي. هذه أنماط تحليلية وليست حكمًا على كل مبتدئ أو ضمانًا بأن سنوات الخبرة تنتج الكفاءة تلقائيًا؛ فالإرشاد والتأمل مهمان.",
     ),
     steps: [
       b(
@@ -160,7 +152,7 @@ export const segments: Segment[] = [
     ),
     misconception: b(
       "Warmth alone guarantees effective teaching. The guide treats knowledge, skills, and dispositions as coordinated requirements.",
-      "يضمن الود وحده التدريس الفعّال. يعامل الدليل المعرفة والمهارات والاستعدادات متطلبات متكاملة.",
+      "يضمن الود وحده التدريس الفعّال. يعامل الدليل المعرفة والمهارات والتوجهات المهنية متطلبات متكاملة.",
     ),
     check: b(
       "A teacher treats errors respectfully and changes an explanation. Which domains are visible?",
@@ -168,7 +160,7 @@ export const segments: Segment[] = [
     ),
     answer: b(
       "Respect and fairness indicate dispositions; adapting the explanation demonstrates skill informed by knowledge. A single action can draw on several domains.",
-      "يدل الاحترام والإنصاف على الاستعدادات المهنية، ويظهر تعديل الشرح مهارة تستند إلى المعرفة. قد يستند الفعل الواحد إلى مجالات متعددة.",
+      "يدل الاحترام والإنصاف على التوجهات المهنية، ويظهر تعديل الشرح مهارة تستند إلى المعرفة. قد يستند الفعل الواحد إلى مجالات متعددة.",
     ),
     evidence: [
       ["intro", 6, "3. Essential Characteristics"],
@@ -251,8 +243,8 @@ export const segments: Segment[] = [
       "تمييز معرفة المحتوى والبيداغوجيا العامة والمنهج وPCK في موقف تطبيقي.",
     ),
     concept: b(
-      "Content Knowledge (CK) is knowing the subject itself. General Pedagogical Knowledge concerns cross-subject principles such as management and instructional strategies. Curricular Knowledge concerns the materials, programs, and sequencing used for a subject at a level. Pedagogical Content Knowledge (PCK) is knowing how to make a particular idea understandable to particular learners through representations, analogies, examples, and attention to common misconceptions. It is more specific than knowing the content and more contextualized than a generic teaching technique.\n\nThe guide’s examples show a teacher anticipating confusion between assignment and equality in programming, using multiplication by a fraction below one, challenging beliefs about falling objects, or broadening art-quality criteria beyond realism. The diagnostic feature is the fit between a specific content difficulty and the selected representation.",
-      "معرفة المحتوى CK هي معرفة الموضوع ذاته. وتعالج البيداغوجيا العامة مبادئ عابرة للتخصصات كالإدارة والاستراتيجيات. وتتعلق معرفة المنهج بالمواد والبرامج والتسلسل لمادة ومستوى معينين. أما PCK فهي معرفة كيفية جعل فكرة محددة مفهومة لمتعلمين محددين، باستخدام التمثيلات والتشبيهات والأمثلة ومعرفة التصورات الخاطئة. وهي أخصّ من معرفة المحتوى، وأكثر ارتباطًا بالسياق من تقنية تدريس عامة.\n\nتتضمن أمثلة الدليل توقع الخلط بين الإسناد والمساواة في البرمجة، والضرب بكسر أقل من واحد، وتحدي تصور سقوط الأجسام، وتوسيع معايير جودة الفن إلى ما وراء الواقعية. السمة التشخيصية هي ملاءمة التمثيل لصعوبة في محتوى محدد.",
+      "Content Knowledge (CK) is knowing the subject itself. General Pedagogical Knowledge concerns cross-subject principles such as management and instructional strategies. Curricular Knowledge concerns the materials, programs, and sequencing used for a subject at a level. These are the four bases summarized in the uploaded guide, not a claim to reproduce an exhaustive taxonomy from Shulman’s original research. Pedagogical Content Knowledge (PCK) is knowing how to make a particular idea understandable to particular learners through representations, analogies, examples, and attention to common misconceptions. It is more specific than knowing the content and more contextualized than a generic teaching technique.\n\nThe guide’s examples show a teacher anticipating confusion between assignment and equality in programming, using multiplication by a fraction below one, challenging beliefs about falling objects, or broadening art-quality criteria beyond realism. The diagnostic feature is the fit between a specific content difficulty and the selected representation.",
+      "معرفة المحتوى CK هي معرفة الموضوع ذاته. وتعالج البيداغوجيا العامة مبادئ عابرة للتخصصات كالإدارة والاستراتيجيات. وتتعلق معرفة المنهج بالمواد والبرامج والتسلسل لمادة ومستوى معينين. هذه المعارف الأربع ملخص الدليل المرفوع، لا ادعاء بنقل تصنيف شامل من أبحاث شولمان الأصلية. أما PCK فهي معرفة كيفية جعل فكرة محددة مفهومة لمتعلمين محددين، باستخدام التمثيلات والتشبيهات والأمثلة ومعرفة التصورات الخاطئة. وهي أخصّ من معرفة المحتوى، وأكثر ارتباطًا بالسياق من تقنية تدريس عامة.\n\nتتضمن أمثلة الدليل توقع الخلط بين الإسناد والمساواة في البرمجة، والضرب بكسر أقل من واحد، وتحدي تصور سقوط الأجسام، وتوسيع معايير جودة الفن إلى ما وراء الواقعية. السمة التشخيصية هي ملاءمة التمثيل لصعوبة في محتوى محدد.",
     ),
     steps: [
       b(

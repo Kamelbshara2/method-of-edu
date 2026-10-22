@@ -37,6 +37,21 @@ type Env = {
   FAHM_AI_MODEL?: string;
   FAHM_REVIEW_TOKEN?: string;
 };
+export function configurationStatus(env: Env) {
+  return {
+    status:
+      env.FAHM_AI_API_KEY &&
+      env.FAHM_REVIEW_TOKEN &&
+      env.FAHM_REVIEW_TOKEN.length >= 24
+        ? "configured"
+        : "setup_required",
+    providerKeyConfigured: Boolean(env.FAHM_AI_API_KEY),
+    accessPasswordConfigured: Boolean(
+      env.FAHM_REVIEW_TOKEN && env.FAHM_REVIEW_TOKEN.length >= 24,
+    ),
+    model: env.FAHM_AI_MODEL || DEFAULT_MODEL,
+  };
+}
 async function structured<T>(
   schema: z.ZodType<T>,
   name: string,

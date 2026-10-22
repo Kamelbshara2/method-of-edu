@@ -30,9 +30,9 @@ describe("practice scoring", () => {
   });
 });
 describe("bilingual assessment content", () => {
-  it("has full bilingual feedback and source-linked topics for all 36 questions", () => {
-    expect(questions).toHaveLength(36);
-    expect(new Set(questions.map((q) => q.id)).size).toBe(36);
+  it("has full bilingual feedback and source-linked topics for all 90 questions", () => {
+    expect(questions).toHaveLength(90);
+    expect(new Set(questions.map((q) => q.id)).size).toBe(90);
     for (const q of questions) {
       expect(topics.some((t) => t.id === q.topic)).toBe(true);
       expect(q.correct).toBeGreaterThanOrEqual(0);

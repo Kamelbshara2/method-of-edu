@@ -9,12 +9,12 @@ export default function CoverageMap() {
           <BookOpen size={20} />
           Your midterm coverage map
         </h2>
-        <span className="count-badge">18 subtopics · 36 questions</span>
+        <span className="count-badge">18 subtopics · 90 questions</span>
       </div>
       <p>
-        Every card has two mapped questions and an additional written
-        self-check. This shows coverage of the supplied guides’ main topics; it
-        does not predict the lecturer’s exam or replace source reading.
+        Every card has five mapped MCQs and an additional written self-check.
+        This shows coverage of the supplied guides’ main topics; it does not
+        predict the lecturer’s exam or replace source reading.
       </p>
       {topics.map((t) => (
         <details key={t.id}>
@@ -37,12 +37,31 @@ export default function CoverageMap() {
                       {s.title.ar}
                     </small>
                   </span>
-                  <span>
-                    {questions
-                      .filter((q) => q.segmentId === s.id)
-                      .map((q) => q.id.toUpperCase())
-                      .join(" · ")}
-                  </span>
+                  <div>
+                    <details className="coverage-questions">
+                      <summary>
+                        {questions
+                          .filter((q) => q.segmentId === s.id)
+                          .map((q) => q.id.toUpperCase())
+                          .join(" · ")}
+                      </summary>
+                      <ol>
+                        {questions
+                          .filter((q) => q.segmentId === s.id)
+                          .map((q) => (
+                            <li key={q.id}>
+                              <strong>
+                                {q.id.toUpperCase()} · {q.type}
+                              </strong>
+                              <p>{q.stem}</p>
+                              <p className="arabic" lang="ar" dir="rtl">
+                                {q.ar}
+                              </p>
+                            </li>
+                          ))}
+                      </ol>
+                    </details>
+                  </div>
                 </div>
               ))}
           </div>

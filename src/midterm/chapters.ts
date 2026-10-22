@@ -35,7 +35,7 @@ export const midtermTopics: Topic[] = [
     explanation:
       "Teaching intentionally organizes conditions for learning. Professional judgment combines knowledge, skills, and dispositions with the structure of a particular discipline. PCK explains subject-specific representation and learner misconceptions; TPACK integrates technology, pedagogy, and content. ADDIE and ASSURE supply processes for translating that judgment into learning experiences. Read the seven detailed subtopics for the full explanations and source pages.",
     arExplanation:
-      "ينظم التدريس ظروف التعلّم بصورة مقصودة. يجمع الحكم المهني المعرفة والمهارات والاستعدادات المهنية مع بنية التخصص. تفسّر PCK التمثيلات الخاصة بالمحتوى والتصورات الخاطئة، وتدمج TPACK التقنية والبيداغوجيا والمحتوى. ويقدّم ADDIE وASSURE عمليات تحويل هذا الحكم إلى خبرات تعلم. تتضمن البطاقات السبع التفصيل والمراجع.",
+      "ينظم التدريس ظروف التعلّم بصورة مقصودة. يجمع الحكم المهني المعرفة والمهارات والتوجهات المهنية مع بنية التخصص. تفسّر PCK التمثيلات الخاصة بالمحتوى والتصورات الخاطئة، وتدمج TPACK التقنية والبيداغوجيا والمحتوى. ويقدّم ADDIE وASSURE عمليات تحويل هذا الحكم إلى خبرات تعلم. تتضمن البطاقات السبع التفصيل والمراجع.",
     example:
       "A mathematics teacher anticipates the belief that multiplication always increases a number, selects a fraction model, and asks learners to explain a counterexample. The choice reflects PCK; deliberately integrating a suitable interactive model with the learning strategy adds a TPACK perspective.",
     arExample:

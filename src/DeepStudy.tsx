@@ -8,6 +8,7 @@ import {
   Lightbulb,
   Target,
 } from "lucide-react";
+import { studyTables } from "./midterm/studyDetails";
 import SourceNotes from "./SourceNotes";
 import type { Dialect } from "./content";
 import { segments, references, type BilingualText } from "./deepContent";
@@ -117,7 +118,38 @@ export default function DeepStudy({
                   Academic keywords retain their standard Arabic terminology.
                 </small>
               </div>
-              <h3>2. Put it into practice</h3>
+              <h3>2. Compare the terms & decisions</h3>
+              <p className="table-scope">
+                Teaching synthesis of the cited guide pages; examples clarify
+                the distinction rather than quote the source.
+              </p>
+              <div className="comparison-table study-comparison">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Term / المصطلح</th>
+                      <th>Meaning / المعنى</th>
+                      <th>Decision clue / دليل التمييز</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(studyTables[s.id] || []).map((r, i) => (
+                      <tr key={i}>
+                        <td>
+                          <Dual value={r.term} arabic={bilingual} />
+                        </td>
+                        <td>
+                          <Dual value={r.meaning} arabic={bilingual} />
+                        </td>
+                        <td>
+                          <Dual value={r.decision} arabic={bilingual} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <h3>3. Put it into practice</h3>
               <ol className="practice-steps">
                 {s.steps.map((v, i) => (
                   <li key={i}>
@@ -127,8 +159,12 @@ export default function DeepStudy({
               </ol>
               <div className="worked-case">
                 <span className="eyebrow">
-                  <GraduationCap size={16} /> ORIGINAL CLASSROOM CASE
+                  <GraduationCap size={16} /> WORKED CLASSROOM APPLICATION
                 </span>
+                <p className="case-source-label">
+                  Adapted from a source example or authored as an application;
+                  not a verbatim quotation.
+                </p>
                 <Dual value={s.case} arabic={bilingual} />
                 <h4>Why this example matters</h4>
                 <Dual value={s.analysis} arabic={bilingual} />

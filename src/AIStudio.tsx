@@ -1,3 +1,5 @@
+import AIConnectionStatus from "./AIConnectionStatus";
+import AISetupHelp from "./AISetupHelp";
 import { useMemo, useState } from "react";
 import {
   ArrowRight,
@@ -161,7 +163,7 @@ export default function AIStudio({
     setError("");
     if (accessToken.length < 24) {
       setError(
-        "Enter your workspace access token (at least 24 characters). This is not your provider API key.",
+        "Enter the AI access password you set as FAHM_REVIEW_TOKEN in Vercel (at least 24 characters). It is a password you create, not another API key.",
       );
       return;
     }
@@ -353,8 +355,9 @@ export default function AIStudio({
                 ? `Audit ${reviewQuestions.length} ${availableQuestions.length ? "generated" : "midterm"} questions for accuracy, ambiguity, cognitive demand, translation, and feedback quality against your selected sources.`
                 : "Get formative feedback on a written explanation, including strengths, gaps, and a reasoned model answer. This is not an official grade."}
           </p>
+          <AIConnectionStatus />
           <label className="field-label" htmlFor="agent-token">
-            <KeyRound size={14} /> Workspace access token
+            <KeyRound size={14} /> AI access password
           </label>
           <input
             id="agent-token"
@@ -364,7 +367,7 @@ export default function AIStudio({
             spellCheck={false}
             value={accessToken}
             onChange={(e) => setAccessToken(e.target.value)}
-            placeholder="Access token set by the workspace owner"
+            placeholder="The password you set as FAHM_REVIEW_TOKEN"
           />
           <small className="field-help">
             Held in memory for this session. Your OpenAI API key belongs only in
@@ -396,6 +399,7 @@ export default function AIStudio({
               </select>
             </>
           )}
+          <AISetupHelp />
           <div className="source-select-heading">
             <h3>Choose your source pages</h3>
             <button className="text-link" onClick={onLibrary}>
@@ -615,8 +619,8 @@ export default function AIStudio({
             <p>
               Set FAHM_AI_API_KEY, FAHM_REVIEW_TOKEN (a random value of at least
               24 characters), and optionally FAHM_AI_MODEL in Vercel. Redeploy
-              after changing them. Never prefix secrets with VITE_. Use the
-              workspace access token here, not the provider key.
+              after changing them. Never prefix secrets with VITE_. Use the AI
+              access password here, not the provider key.
             </p>
           </details>
         </aside>
