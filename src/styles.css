@@ -5742,3 +5742,7 @@ textarea.agent-input {
     padding-left: 23px;
   }
 }
+
+.footer-signature { display: flex; flex-direction: column; gap: 6px; }
+.footer-dedication { font-size: 12px; line-height: 1.8; color: #8b776f; }
+.footer-dedication > span { display: inline-block; color: #aa7b79; margin-inline-start: 4px; }

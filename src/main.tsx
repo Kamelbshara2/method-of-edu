@@ -1541,7 +1541,12 @@ function App() {
             <span className="footer-brand">
               fahm<span>.</span>
             </span>
-            <span>Designed by Kamel Bshara</span>
+            <span className="footer-signature">
+              <span>Designed by Kamel Bshara</span>
+              <span className="footer-dedication arabic" lang="ar" dir="rtl">
+                إلى حبيبتي وآخر صبري <span aria-label="حب">♡</span>
+              </span>
+            </span>
             <span className="footer-right">
               METHODS OF TEACHING <span>·</span> YOUR CALMER STUDY SPACE
             </span>
