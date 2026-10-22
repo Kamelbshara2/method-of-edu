@@ -1541,7 +1541,7 @@ function App() {
             <span className="footer-brand">
               fahm<span>.</span>
             </span>
-            <span>Made for understanding.</span>
+            <span>Designed by Kamel Bshara</span>
             <span className="footer-right">
               METHODS OF TEACHING <span>·</span> YOUR CALMER STUDY SPACE
             </span>
