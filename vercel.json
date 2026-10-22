@@ -1,0 +1,16 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/((?!api(?:/|$)|assets(?:/|$)|materials(?:/|$)|favicon\\.svg$).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "functions": {
+    "api/agent.ts": {
+      "maxDuration": 300
+    }
+  }
+}
